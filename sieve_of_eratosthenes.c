@@ -5,8 +5,34 @@
 #include <string.h>
 #include <time.h>
 
+void print_results(int max_number, int counter, double time_taken, int verbose)
+{
+  printf("\033[0;32m");
+  printf("\n #################################################");
+  printf("\n %-13s%23s%13s", "# ", "Sequencial Prime Finder", " #");
+  printf("\n %-12s%26s%11s", "# ", "Gabriel Donadel Dall'Agnol", " #");
+  printf("\n #################################################");
+  printf("\n #%47s#", " ");
+  printf("\n %-36s%11d%2s", "# Total of numbers evaluated: ", max_number, " #");
+  printf("\n %-36s%11d%2s", "# Total of prime numbers found: ", counter, " #");
+  printf("\n %-36s%10fs%2s", "# Elapsed time to evaluate numbers: ", time_taken, " #");
+  printf("\n #%47s#", " ");
+  printf("\n #################################################\n\n");
+  printf("\033[0m");
+
+  if (!verbose)
+  {
+    printf(" Tip: Running this program using the flag -v will print all prime numbers found\n\n");
+  }
+}
+
 int main(int argc, char *argv[])
 {
+  if (argc == 1)
+  {
+    printf("The first param must be a number!\n");
+    return 0;
+  }
 
   int max_number, i, j, counter, verbose;
   char *param1;
@@ -84,18 +110,7 @@ int main(int argc, char *argv[])
 
   t = clock() - t;
   double time_taken = ((double)t) / CLOCKS_PER_SEC;
-  printf("\033[0;32m");
-  printf("\n #################################################");
-  printf("\n %-36s%11d%2s", "# Total of numbers evaluated: ", max_number, " #");
-  printf("\n %-36s%11d%2s", "# Total of prime numbers found: ", counter, " #");
-  printf("\n %-36s%10fs%2s", "# Elapsed time to evaluate numbers: ", time_taken, " #");
-  printf("\n #################################################\n\n");
-  printf("\033[0m");
-
-  if (!verbose)
-  {
-    printf("Tip: Running this program using the flag -v will print all prime numbers found\n\n");
-  }
+  print_results(max_number, counter, time_taken, verbose);
 
   return 0;
 }
