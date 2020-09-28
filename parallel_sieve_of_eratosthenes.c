@@ -20,6 +20,7 @@ void print_results(int counter, double time_taken, int verbose)
 {
   printf("\033[0;32m");
   printf("\n #################################################");
+  printf("\n %-14s%21s%14s", "# ", "Sieve of Eratosthenes", " #");
   printf("\n %-14s%21s%14s", "# ", "Parallel Prime Finder", " #");
   printf("\n %-12s%26s%11s", "# ", "Gabriel Donadel Dall'Agnol", " #");
   printf("\n #################################################");
