@@ -92,7 +92,7 @@ void *custom_evaluate_numbers(void *args)
 
 int main(int argc, char *argv[])
 {
-  clock_t t;
+  struct timespec start, finish;
 
   int max_number, counter, i;
 
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
     }
   }
 
-  t = clock();
+  clock_gettime(CLOCK_MONOTONIC, &start);
 
   pthread_t threads[n_threads];
   struct thread_custom_set *sets = malloc(sizeof(struct thread_custom_set) * n_threads);
@@ -156,8 +156,9 @@ int main(int argc, char *argv[])
 
   free(sets);
 
-  t = clock() - t;
-  double time_taken = ((double)t) / CLOCKS_PER_SEC;
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  double time_taken = (finish.tv_sec - start.tv_sec);
+  time_taken += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
   print_results(max_number, counter, time_taken);
 

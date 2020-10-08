@@ -94,7 +94,8 @@ int main(int argc, char *argv[])
     }
   }
 
-  clock_t t = clock();
+  struct timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
   pthread_t threads[n_threads];
   int array_size = (max_number - 1) / 2;
   primes = calloc(array_size + 1, sizeof(unsigned char)); //malloc(sizeof(unsigned char) * (array_size + 1));
@@ -150,8 +151,9 @@ int main(int argc, char *argv[])
       counter += primes[i];
   }
 
-  t = clock() - t;
-  double time_taken = ((double)t) / CLOCKS_PER_SEC;
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  double time_taken = (finish.tv_sec - start.tv_sec);
+  time_taken += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
   print_results(counter, time_taken, verbose);
 
   return 0;
