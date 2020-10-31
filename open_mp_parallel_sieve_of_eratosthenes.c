@@ -97,6 +97,9 @@ int main(int argc, char *argv[])
       for (int j = i * i; j <= max_number; j = j + 2 * i)
         primes[j / 2] = 0x00;
 
+  if (max_number >= 2)
+    counter++;
+
   // Print all prime numbers found
   if (verbose && max_number >= 2)
   {
